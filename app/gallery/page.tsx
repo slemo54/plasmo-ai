@@ -46,7 +46,7 @@ const ASPECT_RATIOS = [
 ]
 
 export default function GalleryPage() {
-  const [user, setUser] = useState<{ email: string; full_name?: string; credits: number } | null>(null)
+  const [user, setUser] = useState<{ email: string; full_name: string | null; credits: number } | null>(null)
   const [videos, setVideos] = useState<GalleryVideo[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [selectedCategory, setSelectedCategory] = useState<TemplateCategory | 'All'>('All')

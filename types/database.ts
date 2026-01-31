@@ -29,6 +29,7 @@ export interface Database {
           created_at?: string
           updated_at?: string
         }
+        Relationships: []
       }
       video_generations: {
         Row: {
@@ -94,6 +95,7 @@ export interface Database {
           created_at?: string
           updated_at?: string
         }
+        Relationships: []
       }
       projects: {
         Row: {
@@ -126,6 +128,7 @@ export interface Database {
           created_at?: string
           updated_at?: string
         }
+        Relationships: []
       }
       templates: {
         Row: {
@@ -167,6 +170,7 @@ export interface Database {
           is_active?: boolean
           created_at?: string
         }
+        Relationships: []
       }
       user_stats: {
         Row: {
@@ -199,6 +203,7 @@ export interface Database {
           favorite_template_id?: string | null
           last_updated?: string
         }
+        Relationships: []
       }
       notifications: {
         Row: {
@@ -231,6 +236,34 @@ export interface Database {
           is_read?: boolean
           created_at?: string
         }
+        Relationships: []
+      }
+      credit_transactions: {
+        Row: {
+          id: string
+          user_id: string
+          amount: number
+          type: string
+          description: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          amount: number
+          type: string
+          description?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          amount?: number
+          type?: string
+          description?: string | null
+          created_at?: string
+        }
+        Relationships: []
       }
     }
     Views: {

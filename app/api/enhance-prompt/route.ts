@@ -1,14 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { GoogleGenAI } from '@google/genai'
 
-const apiKey = process.env.GOOGLE_AI_API_KEY
-
-if (!apiKey) {
-  throw new Error('GOOGLE_AI_API_KEY non configurata')
-}
-
-const ai = new GoogleGenAI({ apiKey })
-
 const STYLE_PROMPTS: Record<string, string> = {
   cinematic: `Enhance this video prompt for cinematic quality. Add details about:
 - Professional camera movement (dolly, crane, handheld, etc.)
@@ -51,6 +43,15 @@ const INTENSITY_MULTIPLIERS: Record<string, number> = {
 
 export async function POST(request: NextRequest) {
   try {
+    const apiKey = process.env.GOOGLE_AI_API_KEY
+    if (!apiKey) {
+      return NextResponse.json(
+        { error: 'GOOGLE_AI_API_KEY non configurata' },
+        { status: 500 }
+      )
+    }
+    const ai = new GoogleGenAI({ apiKey })
+
     const body = await request.json()
     const { prompt, style = 'cinematic', intensity = 'moderate' } = body
     

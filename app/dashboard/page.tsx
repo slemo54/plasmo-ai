@@ -21,7 +21,7 @@ import { useStats } from '@/lib/hooks'
 interface UserProfile {
   id: string
   email: string
-  full_name?: string
+  full_name: string | null
   credits: number
 }
 
