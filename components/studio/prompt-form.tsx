@@ -22,6 +22,7 @@ import {
 } from '@/components/ui/icons'
 import { TextArea } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { PromptEnhancer } from '@/components/dashboard'
 
 const fileToBase64 = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
@@ -152,6 +153,10 @@ export const PromptForm: React.FC<PromptFormProps> = ({
     if (resolution === Resolution.P4K) return 20
     if (resolution === Resolution.P1080) return 15
     return 10
+  }
+
+  const handleEnhancedPrompt = (enhancedPrompt: string) => {
+    setPrompt(enhancedPrompt)
   }
 
   return (
@@ -302,15 +307,18 @@ export const PromptForm: React.FC<PromptFormProps> = ({
             <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">
               Prompt
             </label>
-            {prompt && (
-              <button
-                type="button"
-                onClick={() => setPrompt('')}
-                className="text-[10px] text-gray-400 hover:text-white transition-colors"
-              >
-                Cancella
-              </button>
-            )}
+            <div className="flex items-center gap-2">
+              <PromptEnhancer prompt={prompt} onEnhanced={handleEnhancedPrompt} />
+              {prompt && (
+                <button
+                  type="button"
+                  onClick={() => setPrompt('')}
+                  className="text-[10px] text-gray-400 hover:text-white transition-colors"
+                >
+                  Cancella
+                </button>
+              )}
+            </div>
           </div>
           <div className="relative group">
             <TextArea
