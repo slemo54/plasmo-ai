@@ -19,7 +19,7 @@ import { Button } from '@/components/ui/button'
 interface NavbarProps {
   user: {
     email: string
-    full_name?: string
+    full_name: string | null
     credits: number
   } | null
   onSignOut: () => void

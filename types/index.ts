@@ -103,8 +103,8 @@ export interface VideoGeneration {
 export interface UserProfile {
   id: string
   email: string
-  full_name?: string
-  avatar_url?: string
+  full_name: string | null
+  avatar_url: string | null
   credits: number
   created_at: string
   updated_at: string

@@ -1,11 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import './globals.css'
-
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-})
 
 export const metadata: Metadata = {
   title: 'Plasmo AI - Crea Video Cinematografici con l\'Intelligenza Artificiale',
@@ -26,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="it" className="dark">
-      <body className={`${inter.variable} font-sans antialiased bg-[#090a0f] text-white`}>
+      <body className="font-sans antialiased bg-[#090a0f] text-white">
         {children}
       </body>
     </html>
