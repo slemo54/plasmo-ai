@@ -5,9 +5,9 @@ import { cookies } from 'next/headers'
 import { GenerateVideoParams, AspectRatio, Resolution } from '@/types'
 
 const CREDIT_COSTS: Record<Resolution, number> = {
-  [Resolution.P720]: 10,
-  [Resolution.P1080]: 15,
-  [Resolution.P4K]: 20,
+  [Resolution.P720]: 1,
+  [Resolution.P1080]: 2,
+  [Resolution.P4K]: 4,
 }
 
 export async function POST(request: NextRequest) {

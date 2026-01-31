@@ -150,9 +150,9 @@ export const PromptForm: React.FC<PromptFormProps> = ({
   const isSubmitDisabled = !prompt.trim() && generationMode === GenerationMode.TEXT_TO_VIDEO && !startFrame
 
   const getCostDisplay = () => {
-    if (resolution === Resolution.P4K) return 20
-    if (resolution === Resolution.P1080) return 15
-    return 10
+    if (resolution === Resolution.P4K) return 4
+    if (resolution === Resolution.P1080) return 2
+    return 1
   }
 
   const handleEnhancedPrompt = (enhancedPrompt: string) => {
