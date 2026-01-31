@@ -12,8 +12,9 @@ const CREDIT_COSTS: Record<Resolution, number> = {
 
 export async function POST(request: NextRequest) {
   try {
-    // Verifica autenticazione
-    const supabase = createRouteHandlerClient({ cookies })
+    // Verifica autenticazione (await cookies() for Next.js 15 compatibility)
+    const cookieStore = await cookies()
+    const supabase = createRouteHandlerClient({ cookies: () => cookieStore } as any)
     const { data: { session } } = await supabase.auth.getSession()
 
     if (!session) {

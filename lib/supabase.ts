@@ -1,25 +1,10 @@
 import { createClient } from '@supabase/supabase-js'
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { Database } from '@/types/database'
 
-// Client per il browser
+// Client per il browser (with build-time fallback to prevent SSR crashes)
 export const createBrowserClient = () => {
-  return createClientComponentClient<Database>()
-}
-
-// Client per il server (con service role)
-export const createServerClient = () => {
   return createClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!,
-    {
-      auth: {
-        autoRefreshToken: false,
-        persistSession: false,
-      },
-    }
+    process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co',
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder'
   )
 }
-
-// Client admin per operazioni server
-export const supabaseAdmin = createServerClient()
