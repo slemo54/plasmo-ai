@@ -31,9 +31,7 @@ export default function AuthCallbackPage() {
           id: session.user.id,
           email: session.user.email!,
           credits: 8,
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString(),
-        })
+        } as any)
 
         // Registra transazione bonus
         await supabase.from('credit_transactions').insert({
@@ -41,7 +39,7 @@ export default function AuthCallbackPage() {
           amount: 8,
           type: 'bonus',
           description: 'Crediti benvenuto',
-        })
+        } as any)
       }
 
       router.push('/dashboard')

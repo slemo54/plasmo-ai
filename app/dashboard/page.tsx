@@ -7,8 +7,8 @@ import { Navbar } from '@/components/navbar'
 import { PromptForm } from '@/components/studio/prompt-form'
 import { VideoResult } from '@/components/studio/video-result'
 import { GenerateVideoParams, AppState, AspectRatio } from '@/types'
-import { Sparkles, Zap, Film, AlertCircle } from '@/components/ui/icons'
-import { Card, CardHeader } from '@/components/ui/card'
+import { Zap, Film } from '@/components/ui/icons'
+import { Card } from '@/components/ui/card'
 
 interface UserProfile {
   id: string

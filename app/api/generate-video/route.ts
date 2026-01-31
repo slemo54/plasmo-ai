@@ -185,8 +185,8 @@ export async function POST(request: NextRequest) {
       let videoUrl = ''
       if (uploadError) {
         console.error('Errore upload:', uploadError)
-        // Fallback all'URL diretto
-        videoUrl = URL.createObjectURL(videoBlob)
+        // Fallback all'URL di Google diretto
+        videoUrl = videoUri
       } else {
         const { data: { publicUrl } } = supabase.storage
           .from('videos')

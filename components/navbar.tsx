@@ -5,14 +5,12 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import {
   Zap,
-  User,
   ChevronDown,
   Menu,
   X,
   LogOut,
   LayoutDashboard,
   Film,
-  Settings,
 } from '@/components/ui/icons'
 import { Button } from '@/components/ui/button'
 
