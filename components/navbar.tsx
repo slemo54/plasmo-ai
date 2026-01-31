@@ -11,6 +11,8 @@ import {
   LogOut,
   LayoutDashboard,
   Film,
+  Globe,
+  Sparkles,
 } from '@/components/ui/icons'
 import { Button } from '@/components/ui/button'
 
@@ -21,9 +23,10 @@ interface NavbarProps {
     credits: number
   } | null
   onSignOut: () => void
+  rightElement?: React.ReactNode
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ user, onSignOut }) => {
+export const Navbar: React.FC<NavbarProps> = ({ user, onSignOut, rightElement }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isProfileOpen, setIsProfileOpen] = useState(false)
   const pathname = usePathname()
@@ -31,11 +34,12 @@ export const Navbar: React.FC<NavbarProps> = ({ user, onSignOut }) => {
   const navLinks = [
     { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { href: '/storico', label: 'Storico', icon: Film },
+    { href: '/gallery', label: 'Galleria', icon: Globe },
   ]
 
   return (
     <nav className="h-16 border-b border-gray-800 bg-[#0b0c14]/90 backdrop-blur-md sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-full flex items-center justify-between">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 h-full flex items-center justify-between">
         {/* Logo */}
         <Link href="/dashboard" className="flex items-center gap-2 group">
           <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center text-white font-black text-lg shadow-lg shadow-blue-600/30">
@@ -74,6 +78,9 @@ export const Navbar: React.FC<NavbarProps> = ({ user, onSignOut }) => {
               <span className="text-[10px] text-gray-500">crediti</span>
             </div>
           )}
+
+          {/* Custom Right Element */}
+          {rightElement}
 
           {/* Profile Dropdown */}
           {user && (
@@ -117,6 +124,14 @@ export const Navbar: React.FC<NavbarProps> = ({ user, onSignOut }) => {
                     >
                       <Film className="w-4 h-4" />
                       Storico
+                    </Link>
+                    <Link
+                      href="/gallery"
+                      className="flex items-center gap-2 px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800/50 transition-colors"
+                      onClick={() => setIsProfileOpen(false)}
+                    >
+                      <Globe className="w-4 h-4" />
+                      Galleria
                     </Link>
                     <button
                       onClick={() => {
