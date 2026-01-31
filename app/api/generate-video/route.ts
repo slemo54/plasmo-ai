@@ -161,9 +161,9 @@ export async function POST(request: NextRequest) {
     }
 
     // Estrai video URL
-    if (operation?.response?.generatedVideos?.[0]) {
+    if (operation?.response?.generatedVideos?.[0]?.video) {
       const videoObject = operation.response.generatedVideos[0].video
-      const videoUri = decodeURIComponent(videoObject.uri || '')
+      const videoUri = decodeURIComponent(videoObject?.uri || '')
       
       // Scarica video
       const videoResponse = await fetch(`${videoUri}&key=${apiKey}`)
