@@ -2,7 +2,7 @@ import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { Ratelimit } from '@upstash/ratelimit';
-import { Redis } from '@upstash/redis';
+import { Redis } from '@upstash/redis/cloudflare';
 
 // Rate limiter configuration
 const ratelimit = new Ratelimit({
@@ -20,7 +20,7 @@ export async function middleware(request: NextRequest) {
 
   // Rate limiting for API routes
   if (request.nextUrl.pathname.startsWith('/api/')) {
-    const identifier = session?.user?.id || request.ip || 'anonymous';
+    const identifier = session?.user?.id || request.headers.get('x-forwarded-for') || 'anonymous';
     const { success, limit, reset, remaining } = await ratelimit.limit(identifier);
     
     if (!success) {
@@ -40,7 +40,10 @@ export async function middleware(request: NextRequest) {
   }
 
   // Auth protection for main routes
-  if (!session && request.nextUrl.pathname.startsWith('/(main)')) {
+  const protectedRoutes = ['/gallery', '/create', '/projects', '/settings', '/templates', '/dashboard'];
+  const isProtectedRoute = protectedRoutes.some(route => request.nextUrl.pathname.startsWith(route)) || request.nextUrl.pathname === '/';
+
+  if (!session && isProtectedRoute) {
     return NextResponse.redirect(new URL('/login', request.url));
   }
 
