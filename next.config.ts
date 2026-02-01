@@ -1,14 +1,12 @@
-import type { NextConfig } from 'next'
+import type { NextConfig } from 'next';
+import withSerwist from '@serwist/next';
 
 const nextConfig: NextConfig = {
-  reactStrictMode: true,
+  output: 'standalone',
   images: {
     unoptimized: true,
     remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: '**',
-      },
+      { protocol: 'https', hostname: '**' },
     ],
   },
   eslint: {
@@ -17,19 +15,26 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: false,
   },
-  async headers() {
-    return [
-      {
-        source: '/api/:path*',
-        headers: [
-          { key: 'Access-Control-Allow-Credentials', value: 'true' },
-          { key: 'Access-Control-Allow-Origin', value: '*' },
-          { key: 'Access-Control-Allow-Methods', value: 'GET,DELETE,PATCH,POST,PUT' },
-          { key: 'Access-Control-Allow-Headers', value: 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version' },
-        ],
-      },
-    ]
+  experimental: {
+    optimizePackageImports: ['lucide-react'],
   },
-}
+  headers: async () => [
+    {
+      source: '/api/:path*',
+      headers: [
+        { key: 'Access-Control-Allow-Credentials', value: 'true' },
+        { key: 'Access-Control-Allow-Origin', value: '*' },
+        { key: 'Access-Control-Allow-Methods', value: 'GET,POST,PUT,DELETE,PATCH,OPTIONS' },
+        { key: 'Access-Control-Allow-Headers', value: 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization' },
+      ],
+    },
+  ],
+};
 
-export default nextConfig
+const withPWA = withSerwist({
+  swSrc: 'app/sw.ts',
+  swDest: 'public/sw.js',
+  cacheOnNavigation: true,
+});
+
+export default withPWA(nextConfig);
