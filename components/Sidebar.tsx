@@ -10,7 +10,9 @@ import {
   Film,
   Play,
   Settings,
-  Image as ImageIcon
+  Image as ImageIcon,
+  Clock,
+  LucideProps
 } from 'lucide-react';
 
 export default function Sidebar() {
@@ -37,6 +39,7 @@ export default function Sidebar() {
         <NavItem href="/templates" icon={<Film />} label="Templates" active={isActive('/templates')} />
         <NavItem href="/create" icon={<Zap />} label="Generation" active={isActive('/create')} />
         <NavItem href="/gallery" icon={<ImageIcon />} label="Gallery" active={isActive('/gallery')} />
+        <NavItem href="/storico" icon={<Clock />} label="History" active={isActive('/storico')} />
         <NavItem href="/settings" icon={<Settings />} label="Settings" active={isActive('/settings')} />
       </nav>
 
@@ -68,7 +71,7 @@ function NavItem({ icon, label, active = false, href }: { icon: React.ReactNode,
           : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
       }`}
     >
-      {React.cloneElement(icon as React.ReactElement, { size: 18 })}
+      {React.cloneElement(icon as React.ReactElement<LucideProps>, { size: 18 })}
       {label}
     </Link>
   );

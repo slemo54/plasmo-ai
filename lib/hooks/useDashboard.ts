@@ -4,7 +4,12 @@ import { useState, useEffect } from 'react';
 import { createBrowserClient } from '@/lib/supabase';
 
 export function useDashboard() {
-  const [stats, setStats] = useState({
+  const [stats, setStats] = useState<{
+    totalVideos: number;
+    creditsUsed: number;
+    avgGenTime: string;
+    recentVideos: any[];
+  }>({
     totalVideos: 0,
     creditsUsed: 0,
     avgGenTime: '0s',
